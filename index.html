@@ -1,133 +1,204 @@
-html
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Valentine 💖</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Comic Sans MS', cursive;
-      overflow: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Shravani ❤️</title>
+    <style>
+        :root {
+            --primary-pink: #ff85a2;
+            --soft-pink: #ffe4e9;
+            --deep-pink: #ff4d6d;
+            --white: #ffffff;
+        }
 
-    .card {
-      background: #fff0f6;
-      padding: 40px;
-      border-radius: 25px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--soft-pink);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* Prevents scrolling while she tries to click 'No' */
+        }
 
-    h1 {
-      color: #ff4d6d;
-      margin-bottom: 30px;
-    }
+        #app-container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
 
-    button {
-      font-size: 18px;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 10px;
-    }
+        h1 {
+            color: var(--deep-pink);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px var(--white);
+            line-height: 1.4;
+        }
 
-    #yes {
-      background: #ff4d6d;
-      color: white;
-    }
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            position: relative;
+            min-height: 150px;
+        }
 
-    #no {
-      background: #ffd6e0;
-      color: #ff4d6d;
-      position: absolute;
-    }
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+            min-width: 100px;
+        }
 
-    .celebrate {
-      position: fixed;
-      inset: 0;
-      background: pink;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      animation: pop 0.6s ease-in-out;
-    }
+        #yes-btn {
+            background-color: var(--deep-pink);
+            color: white;
+            z-index: 5;
+        }
 
-    @keyframes pop {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
-    }
+        #no-btn {
+            background-color: var(--white);
+            color: var(--deep-pink);
+            position: absolute;
+            transition: all 0.1s ease;
+            z-index: 100;
+        }
 
-    .bear {
-  width: 180px;
-  animation: bounce 1s infinite;
-}
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 133, 162, 0.2);
+            border: 3px solid var(--primary-pink);
+            margin: 15px;
+        }
 
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
+        #success-page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
 
-    .confetti {
-      position: absolute;
-      font-size: 25px;
-      animation: fall 3s linear infinite;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-    @keyframes fall {
-      from { top: -10%; }
-      to { top: 110%; }
-    }
-  </style>
-</head> 
+        .heart-animation {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        /* Floating background hearts */
+        .floating-heart {
+            position: fixed;
+            top: -10vh;
+            color: var(--primary-pink);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+            opacity: 0.6;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
 <body>
 
-  <div class="card">
-    <h1>Will you be my Valentine? 💕</h1>
-    <button id="yes">Yes 💖</button>
-    <button id="no">No 🙄</button>
-  </div>
+    <div id="app-container">
+        <!-- Page 1: Greeting -->
+        <div id="page1" class="card">
+            <h1>Hi Shravani... ❤️</h1>
+            <p style="color: var(--deep-pink); margin-bottom: 20px;">I have something important to ask you.</p>
+            <button class="btn" id="yes-btn" onclick="nextPage()" style="position: static;">Open it</button>
+        </div>
 
-  <div class="celebrate" id="celebrate">
-    <img class="bear" src="https://i.imgur.com/3ZQ3Z5F.png" alt="Cute Bear">
-    <h1>YAYYYYY!!! 💕🎉</h1>
-  </div>
+        <!-- Page 2: The Question -->
+        <div id="page2" class="card" style="display: none;">
+            <h1>Shravani, will you be my valentine?</h1>
+            <div class="btn-container">
+                <button id="yes-btn-main" class="btn" onclick="celebrate()" style="background-color: #ff4d6d; color: white;">Yes</button>
+                <button id="no-btn" class="btn">No</button>
+            </div>
+        </div>
 
-  <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const celebrate = document.getElementById("celebrate");
+        <!-- Page 3: Success -->
+        <div id="success-page" class="card">
+            <div class="heart-animation">
+                <svg viewBox="0 0 100 100">
+                    <path fill="#ff4d6d" d="M50 90s-35-20-35-45c0-15 10-25 25-25 10 0 10 10 10 10s0-10 10-10c15 0 25 10 25 25 0 25-35 45-35 45z">
+                        <animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="0.6s" repeatCount="indefinite" />
+                    </path>
+                </svg>
+            </div>
+            <h1 style="color: #ff4d6d;">YAY! ❤️</h1>
+            <p style="color: #ff4d6d; font-weight: bold;">I'm so happy! I love you! 😘</p>
+        </div>
+    </div>
 
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 50);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    });
+    <script>
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
 
-    yesBtn.addEventListener("click", () => {
-      document.body.innerHTML = "";
-      document.body.appendChild(celebrate);
-      celebrate.style.display = "flex";
+        function nextPage() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'block';
+        }
 
-      for (let i = 0; i < 30; i++) {
-        const conf = document.createElement("div");
-        conf.className = "confetti";
-        conf.innerText = "💖";
-        conf.style.left = Math.random() * 100 + "%";
-        conf.style.animationDelay = Math.random() * 3 + "s";
-        document.body.appendChild(conf);
-      }
-    });
-  </script>
+        const noBtn = document.getElementById('no-btn');
 
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.position = 'fixed';
+        }
+
+        // Run away logic
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+
+        function celebrate() {
+            document.getElementById('page2').style.display = 'none';
+            document.getElementById('success-page').style.display = 'block';
+            
+            // Shower of hearts
+            for(let i=0; i<30; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+        }
+    </script>
 </body>
 </html>
